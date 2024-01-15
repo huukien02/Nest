@@ -8,6 +8,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 import { Repository } from 'typeorm';
 import { News } from './news.entity';
+import * as path from 'path';
+import * as fs from 'fs';
 
 @Injectable()
 export class NewsService {
@@ -27,8 +29,21 @@ export class NewsService {
     }
   }
 
-  async create(news: any): Promise<any> {
+  async create(payload: any): Promise<any> {
     try {
+      const { image, title, content } = payload;
+      console.log(image);
+      const uploadDir = path.join(__dirname, '../../', 'images');
+      const baseUrl = 'http://localhost:3000/images/';
+      const fileName = `News_${Date.now()}${path.extname(image?.originalname)}`;
+
+      const filePath = path.join(uploadDir, fileName);
+      fs.writeFileSync(filePath, image.buffer);
+
+      const imageNew = `${baseUrl}${fileName}`;
+
+      const news = { title, content, image: imageNew };
+
       await this.newsRepository.save(this.newsRepository.create(news));
 
       return {

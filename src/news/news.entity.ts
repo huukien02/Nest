@@ -16,6 +16,9 @@ export class News {
   @Column()
   content: string;
 
+  @Column()
+  image: string;
+
   @CreateDateColumn()
   created_at: Date;
 }

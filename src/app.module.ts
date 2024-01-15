@@ -8,6 +8,9 @@ import { NewsModule } from './news/news.module';
 import { ActivityModule } from './activities/activities.module';
 import { RulesModule } from './rules/rules.module';
 import { FeedbackModule } from './feedback/feedback.module';
+import { join } from 'path';
+import { ServeStaticModule } from '@nestjs/serve-static';
+
 
 @Module({
   imports: [
@@ -17,10 +20,14 @@ import { FeedbackModule } from './feedback/feedback.module';
       host: 'localhost',
       port: 3306,
       username: 'root',
-      password: '',
+      password: 'Abc@27072002',
       database: 'luuductho',
       entities: ['dist/**/*.entity{.ts,.js}'],
       synchronize: true,
+    }),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'images'),
+      serveRoot: '/images',
     }),
 
     TypeOrmModule.forFeature([]),

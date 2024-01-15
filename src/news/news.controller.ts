@@ -6,8 +6,11 @@ import {
   Param,
   Post,
   Req,
+  UploadedFile,
+  UseInterceptors,
 } from '@nestjs/common';
 import { NewsService } from './news.service';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('news')
 export class NewsController {
@@ -19,8 +22,14 @@ export class NewsController {
   }
 
   @Post('create')
-  create(@Body() body: any): any {
-    return this.newsService.create(body);
+  @UseInterceptors(FileInterceptor('image'))
+  create(@UploadedFile() image, @Body() body: any): any {
+    const newsData = {
+      title: body.title,
+      content: body.content,
+      image: image,
+    };
+    return this.newsService.create(newsData);
   }
 
   @Delete('delete/:id')
