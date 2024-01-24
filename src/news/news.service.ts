@@ -32,7 +32,6 @@ export class NewsService {
   async create(payload: any): Promise<any> {
     try {
       const { image, title, content } = payload;
-      console.log(image);
       const uploadDir = path.join(__dirname, '../../', 'images');
       const baseUrl = 'http://localhost:3000/images/';
       const fileName = `News_${Date.now()}${path.extname(image?.originalname)}`;

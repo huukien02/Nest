@@ -16,6 +16,9 @@ export class Feedback {
   @Column()
   content: string;
 
+  @Column()
+  rate: number;
+
   @ManyToOne(() => User)
   @JoinColumn({ name: 'user_id' })
   user: User;

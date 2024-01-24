@@ -29,7 +29,7 @@ export class FeedbackService {
 
   async create(body: any): Promise<any> {
     try {
-      const { content, userId } = body;
+      const { content, rate, userId } = body;
       const user = await this.userRepository.findOne({
         where: { id: userId },
       });
@@ -38,9 +38,9 @@ export class FeedbackService {
         throw new Error('User not found');
       }
 
-      const feedback = this.feedbackRepository.create({ content, user });
+      const feedback = this.feedbackRepository.create({ content, rate, user });
       await this.feedbackRepository.save(
-        this.feedbackRepository.create({ content, user }),
+        this.feedbackRepository.create({ content, rate, user }),
       );
       return {
         feedback: feedback,
@@ -54,8 +54,6 @@ export class FeedbackService {
       const feedback = await this.feedbackRepository.findOne({
         where: { id: feedbackId },
       });
-
-      console.log(feedback);
 
       if (!feedback) {
         return {
