@@ -11,7 +11,6 @@ import { FeedbackModule } from './feedback/feedback.module';
 import { join } from 'path';
 import { ServeStaticModule } from '@nestjs/serve-static';
 
-
 @Module({
   imports: [
     ConfigurationModule,
@@ -20,8 +19,8 @@ import { ServeStaticModule } from '@nestjs/serve-static';
       host: 'localhost',
       port: 3306,
       username: 'root',
-      password: 'Abc@27072002',
-      database: 'luuductho',
+      password: '',
+      database: 'letrungkien',
       entities: ['dist/**/*.entity{.ts,.js}'],
       synchronize: true,
     }),
@@ -35,7 +34,7 @@ import { ServeStaticModule } from '@nestjs/serve-static';
     NewsModule,
     ActivityModule,
     RulesModule,
-    FeedbackModule
+    FeedbackModule,
   ],
   controllers: [AppController],
   providers: [AppService],
